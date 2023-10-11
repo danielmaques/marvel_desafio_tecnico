@@ -1,19 +1,10 @@
+import 'package:character/module/details/details_module.dart';
 import 'package:character/module/home/home_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 void main() {
   return runApp(ModularApp(module: AppModule(), child: const AppWidget()));
-}
-
-class AppModule extends Module {
-  @override
-  void binds(i) {}
-
-  @override
-  void routes(r) {
-    r.module('/', module: HomeModule());
-  }
 }
 
 class AppWidget extends StatelessWidget {
@@ -29,5 +20,16 @@ class AppWidget extends StatelessWidget {
       ),
       routerConfig: Modular.routerConfig,
     ); //added by extension
+  }
+}
+
+class AppModule extends Module {
+  @override
+  void binds(i) {}
+
+  @override
+  void routes(r) {
+    r.module('/', module: HomeModule());
+    r.module('/details', module: DetailsModule());
   }
 }

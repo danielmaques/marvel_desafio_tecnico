@@ -42,9 +42,14 @@ class _HomePageState extends State<HomePage> {
                 },
                 itemBuilder: (context, index) {
                   return MarvelTile(
+                    onTap: () {
+                      Modular.to.pushNamed('/details/', arguments: {
+                        'id': marvel[index].id,
+                      });
+                    },
                     image: marvel[index].thumbnail!.path!,
                     extension: marvel[index].thumbnail!.extension!,
-                    title: marvel[index].title!,
+                    title: marvel[index].name!,
                   );
                 },
               );
