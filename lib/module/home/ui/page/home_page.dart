@@ -45,6 +45,10 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Modular.to.pushNamed('/details/', arguments: {
                         'id': marvel[index].id,
+                        'image':
+                            '${marvel[index].thumbnail!.path!}.${marvel[index].thumbnail!.extension!}',
+                        'name': marvel[index].name!,
+                        'description': marvel[index].description!,
                       });
                     },
                     image: marvel[index].thumbnail!.path!,
