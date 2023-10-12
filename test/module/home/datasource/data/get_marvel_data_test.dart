@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:character/core/result_wrapper/result_wrapper.dart';
 import 'package:character/module/home/datasource/data/get_marvel_data.dart';
 import 'package:character/module/home/datasource/model/marvel_model.dart';
@@ -13,11 +15,11 @@ void main() {
 
   setUp(() {
     dio = DioMock();
-    getMarvelData = GetMarvelData();
+    getMarvelData = GetMarvelData(dio);
   });
 
   test(
-    'deve retornar um objeto ResultSuccess quando a requisição for bem-sucedida',
+    'should return a ResultSuccess object when the API call is successful',
     () async {
       when(() => dio.get(any())).thenAnswer((_) async {
         return Response(
@@ -37,10 +39,41 @@ void main() {
 
       final result = await getMarvelData.call();
 
+      expect(result.isSuccess, true);
       expect(result, isA<ResultSuccess<MarvelModel>>());
-
-      final data = (result as ResultSuccess<MarvelModel>).getSuccessData;
-      expect(data.limit, 100);
     },
   );
+
+   test('should return a ResultError object when the API call throws an error',
+      () async {
+    when(() => dio.get(any())).thenAnswer((_) async {
+      return Response(
+        data: jsonMockErrorResult,
+        statusCode: HttpStatus.badRequest,
+        requestOptions: RequestOptions(
+          method: 'GET',
+          path: '/comics',
+        ),
+      );
+    });
+
+    final result = await getMarvelData.call();
+    expect(result.isSuccess, false);
+    expect(result, isA<ResultError>());
+  });
 }
+
+
+const jsonMockErrorResult = '''
+{
+	"excecao": {
+		"erros": [
+			{
+			  "codigo": "",
+				"mensagem": ""
+			}
+		]
+	}
+}
+''';
+

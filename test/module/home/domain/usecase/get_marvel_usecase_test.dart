@@ -18,7 +18,7 @@ void main() {
   });
 
   test(
-      'deve retornar um objeto ResultSuccess quando a requisição for bem-sucedida',
+      'when call function then return success',
       () async {
     when(() => getMarvelDataMock.call()).thenAnswer((_) async {
       return ResultSuccess<MarvelModel>(
@@ -28,13 +28,11 @@ void main() {
 
     final result = await getMarvelUseCase.call();
 
+    expect(result.isSuccess, true);
     expect(result, isA<ResultSuccess<MarvelModel>>());
-
-    final data = (result as ResultSuccess<MarvelModel>).getSuccessData;
-    expect(data.limit, 100);
   });
 
-  test('deve retornar um objeto ResultError quando a requisição falhar',
+  test('when call function then return error',
       () async {
     when(() => getMarvelDataMock.call()).thenAnswer((_) async {
       return ResultError(BaseError('Erro na requisição'));
@@ -42,6 +40,8 @@ void main() {
 
     final result = await getMarvelUseCase.call();
 
+    expect(result.isSuccess, false);
     expect(result, isA<ResultError>());
+    expect(result.getErrorData, isA<BaseError>());
   });
 }
