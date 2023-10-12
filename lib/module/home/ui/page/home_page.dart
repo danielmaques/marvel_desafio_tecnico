@@ -5,6 +5,7 @@ import 'package:character/module/home/ui/widgets/marvel_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,8 +59,23 @@ class _HomePageState extends State<HomePage> {
                 },
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return ListView.separated(
+                itemCount: 5,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 20);
+                },
+                itemBuilder: (context, index) => Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
               );
             }
           },

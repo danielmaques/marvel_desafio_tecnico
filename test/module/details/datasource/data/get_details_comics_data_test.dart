@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     dio = DioMock();
-    getDetailsComicsData = GetDetailsComicsData(dio);
+    getDetailsComicsData = GetDetailsComicsData();
   });
 
   test('should return a ResultSuccess object when the API call is successful',

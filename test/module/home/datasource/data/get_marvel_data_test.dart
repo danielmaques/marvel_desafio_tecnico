@@ -15,7 +15,7 @@ void main() {
 
   setUp(() {
     dio = DioMock();
-    getMarvelData = GetMarvelData(dio);
+    getMarvelData = GetMarvelData();
   });
 
   test(

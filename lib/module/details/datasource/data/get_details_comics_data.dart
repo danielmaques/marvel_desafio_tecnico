@@ -8,10 +8,9 @@ abstract class IGetDetailsComicsData {
 }
 
 class GetDetailsComicsData implements IGetDetailsComicsData {
-  final Dio dio;
+  final Dio dio = Dio();
   final String url = 'http://gateway.marvel.com/v1/public/characters/';
 
-  GetDetailsComicsData(this.dio);
 
   @override
   Future<Result<ComicsModel>> call(int id) async {

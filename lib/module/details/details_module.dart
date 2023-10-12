@@ -15,11 +15,12 @@ class DetailsModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => DetailsPage(
-      id: r.args.data['id'],
-      image: r.args.data['image'],
-      name: r.args.data['name'],
-      description: r.args.data['description'],
-    ));
+    r.child('/',
+        child: (context) => DetailsPage(
+              id: r.args.data['id'],
+              image: r.args.data['image'],
+              name: r.args.data['name'],
+              description: r.args.data['description'],
+            ));
   }
 }
